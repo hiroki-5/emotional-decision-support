@@ -16,7 +16,26 @@ class EmotionApp:
 
             self.emotion_entry = tk.Label(self.root, width=30)
             self.emotion_entry.pack(pady=10)
-            
+
             #感情の強度を入力するラベルとスピンボックス
+            self.intensity_label = tk.Label(self.root, text="Intensity (1-10):")
+            self.intensity.pack(pady=10)
+
+            self.intensity_spinbox =tk.Spinbox(self.root, from_=1, to=10, width=5)
+            self.intensity_spinbox.pack(pady=10)
+
             #「submit」ボタンの作成
+            self.submit_button = tk.Button(self.root, text="Submit", command=self.submit_emotion)
+            self.submit_button.pack(pady=20)
+
+        def submit_emotion(self):
             #入力された感情と強度を取得して表示
+            emotion = self.emotion_entry.get()
+            intensity = self.intensity_spinbox.get()
+            print(f"Emotion: {emotion}, Intensity: {intensity}")
+
+
+            if __name__ == "__main__":
+                root = tk.Tk()
+                app = EmotionApp(root)
+                root.mainloop()
