@@ -27,11 +27,16 @@ class EmotionApp:
         self.submit_button = tk.Button(self.root, text="Submit", command=self.submit_emotion)
         self.submit_button.pack(pady=20)
 
+        self.results_label = tk.Label(self.root, text="")
+        self.results_label.pack(pady=20)
+        
     def submit_emotion(self):
         emotion = self.emotion_entry.get()
-        intensity = self.intensity_spinbox.get()
+        intensity = int(self.intensity_spinbox.get())
         
-        self.emotion__data.append("emotion: {emotion}, intensity: {intensity}")
+        self.emotion__data.append({"emotion": emotion, "intensity":  intensity})
+        
+        print("Current Emotion Data List:", self.emotion__data)
         
         total_score = sum([entry["intensity"] for entry in self.emotion__data])
         
