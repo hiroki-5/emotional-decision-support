@@ -30,6 +30,9 @@ class EmotionApp:
         self.new_set_button = tk.Button(self.root, text="Create New Set", command=self.create_new_set)
         self.new_set_button.pack(pady=5)
         
+        self.compare_button = tk.Button(self.root, text="Compare Sets", command=self.compare_sets)
+        self.compare_button.pack(pady=5)
+        
         self.save_button = tk.Button(self.root, text="Save Data", command=self.save_data)
         self.save_button.pack(pady=5)
         
@@ -59,8 +62,20 @@ class EmotionApp:
             self.decision_sets.append(self.current_set)
             print("Decision Sets:", self.decision_sets)
             self.current_set = []
-            self.result_label.config(text="New set created. Start adding emotions.")
+            self.results_label.config(text="New set created. Start adding emotions.")
 
+    def compare_sets(self):
+        if not self.decision_sets:
+            self.results_label.config(text="No sets to compare")
+            return
+
+        set_scores = [sum(int(entry["intensity"]) for entry in decision_set)for decision_set in self.decision_sets]
+        
+        best_score = max(set_scores)
+        best_set_index = set_scores.index(best_score)
+        
+        print(f"Set Scores: {set_scores}")
+        self.results_label.config(text=f"Best set is Set {best_set_index + 1} with a score of {best_score}")
     def save_data(self):
         data = {
             "decision_sets": self.decision_sets,
